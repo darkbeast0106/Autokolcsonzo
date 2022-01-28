@@ -11,7 +11,6 @@ class Kezdolap extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('felhasznalo_model');
-        
     }
 
     public function index()
@@ -25,6 +24,9 @@ class Kezdolap extends CI_Controller
 
     public function regisztracio()
     {
+        if ($this->session->userdata('user') !== NULL) {
+            redirect('');
+        }
         $this->load->view('head', ['oldal' => 'regisztracio']);
 
         $this->load->view('regisztracio');
@@ -34,6 +36,9 @@ class Kezdolap extends CI_Controller
 
     public function bejelentkezes()
     {
+        if ($this->session->userdata('user') !== NULL) {
+            redirect('');
+        }
         $this->load->view('head', ['oldal' => 'bejelentkezes']);
 
         $this->load->view('bejelentkezes');
@@ -50,13 +55,13 @@ class Kezdolap extends CI_Controller
         $this->form_validation->set_rules('jelszo_confirm', 'Jelszó megerősítése', 'trim|required|matches[jelszo]');
         $this->form_validation->set_rules('tel', 'Telefonszám', 'trim|required');
 
-        
+
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
             $this->session->set_flashdata('last_request', $this->input->post());
             redirect('regisztracio');
-        } 
-        
+        }
+
         $data = [
             'email' => $this->input->post('email'),
             'felhasznalonev' => $this->input->post('felhasznalonev'),
@@ -64,7 +69,7 @@ class Kezdolap extends CI_Controller
             'tel' => $this->input->post('tel')
         ];
         $id = $this->felhasznalo_model->insert($data);
-        $this->session->set_flashdata('success', "Sikeres regisztráció");        
+        $this->session->set_flashdata('success', "Sikeres regisztráció");
         redirect('bejelentkezes');
     }
 
@@ -74,14 +79,14 @@ class Kezdolap extends CI_Controller
         $this->form_validation->set_rules('felhasznalonev', 'Felhasználónév', 'trim|required');
         $this->form_validation->set_rules('jelszo', 'Jelszó', 'trim|required');
 
-        
+
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
             $this->session->set_flashdata('last_request', $this->input->post());
             redirect('bejelentkezes');
-        } 
+        }
         $felhasznalonev = $this->input->post('felhasznalonev');
-        
+
         $felhasznalo = $this->felhasznalo_model->search_by_username($felhasznalonev);
 
         if (empty($felhasznalo)) {
@@ -97,15 +102,15 @@ class Kezdolap extends CI_Controller
             $this->session->set_flashdata('last_request', $this->input->post());
             redirect('bejelentkezes');
         }
-        
+
         $array = array(
             'user' => $felhasznalo
         );
-        
-        $this->session->set_userdata( $array );
-        
 
-        $this->session->set_flashdata('success', "Sikeres bejelentkezés");        
+        $this->session->set_userdata($array);
+
+
+        $this->session->set_flashdata('success', "Sikeres bejelentkezés");
         redirect('');
     }
 }

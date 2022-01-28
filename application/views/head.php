@@ -30,12 +30,18 @@
             <li class="nav-item" id="kezdolap">
                 <a class="nav-link" href="<?php echo base_url(); ?>">Kezdőlap</a>
             </li>
-            <li class="nav-item" id="regisztracio">
-                <a class="nav-link" href="<?php echo base_url(); ?>regisztracio">Regisztráció</a>
-            </li>
-            <li class="nav-item" id="bejelentkezes">
-                <a class="nav-link" href="<?php echo base_url(); ?>bejelentkezes">Bejelenkezés</a>
-            </li>
+            <?php if ($this->session->userdata('user') !== NULL): ?>
+                <li class="nav-item" id="auto_felvetele">
+                    <a class="nav-link" href="<?php echo base_url(); ?>auto/auto_felvetele">Autó felvétele</a>
+                </li>
+            <?php else: ?>
+                <li class="nav-item" id="regisztracio">
+                    <a class="nav-link" href="<?php echo base_url(); ?>regisztracio">Regisztráció</a>
+                </li>
+                <li class="nav-item" id="bejelentkezes">
+                    <a class="nav-link" href="<?php echo base_url(); ?>bejelentkezes">Bejelenkezés</a>
+                </li>
+            <?php endif; ?>
         </ul>
     </nav>
     <div class="container">

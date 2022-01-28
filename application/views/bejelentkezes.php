@@ -1,5 +1,5 @@
 <h2 class="mt-3">Bejelentkezés</h2>
-<form action="<?php base_url(); ?>bejelentkezes" method="POST">
+<form action="<?php echo base_url(); ?>bejelentkezes" method="POST">
     <div class="form-group">
         <label for="felhasznalonev">Felhasználónév:</label>
         <input type="text" class="form-control" id="felhasznalonev" placeholder="Felhasználónév" name="felhasznalonev" required>
