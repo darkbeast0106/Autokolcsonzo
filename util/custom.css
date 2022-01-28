@@ -1,0 +1,13 @@
+.img-container{
+    height: 150px;
+    text-align: center;
+}
+.img-container-large{
+    height: 200px;
+    text-align: center;
+}
+.card-img-top{
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+}

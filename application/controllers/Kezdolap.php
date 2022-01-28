@@ -11,13 +11,16 @@ class Kezdolap extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('felhasznalo_model');
+        $this->load->model('auto_model');
     }
 
     public function index()
     {
         $this->load->view('head', ['oldal' => 'kezdolap']);
 
-        $this->load->view('kezdolap');
+        $autok = $this->auto_model->list();
+
+        $this->load->view('kezdolap', ['autok' => $autok]);
 
         $this->load->view('foot');
     }

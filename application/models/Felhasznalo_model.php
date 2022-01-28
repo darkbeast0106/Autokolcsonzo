@@ -20,4 +20,10 @@ class Felhasznalo_model extends CI_Model {
         $this->db->where('felhasznalonev', $username);
         return $this->db->get('felhasznalok')->row_array();
     }
+    
+    public function get_by_id($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->get('felhasznalok')->row_array();
+    }
 }

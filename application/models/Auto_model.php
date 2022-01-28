@@ -20,4 +20,21 @@ class Auto_model extends CI_Model {
         $this->db->insert('auto_kepek', $data);
         return $this->db->insert_id();
     }
+
+    public function list()
+    {
+        return $this->db->get('autok')->result_array();
+    }
+
+    public function get_by_id($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->get('autok')->row_array();
+    }
+
+    public function get_auto_kepek($auto_id)
+    {   
+        $this->db->where('auto_id', $auto_id);
+        return $this->db->get('auto_kepek')->result_array();
+    }
 }
