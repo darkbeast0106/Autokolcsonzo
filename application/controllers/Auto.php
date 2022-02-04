@@ -11,6 +11,9 @@ class Auto extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('auto_model');
+		if ($this->session->userdata('user') === NULL) {
+			redirect('');
+		}
 	}
 
 	public function index()
