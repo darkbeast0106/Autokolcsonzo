@@ -88,4 +88,47 @@ class Ajanlat extends CI_Controller {
 		$this->session->set_flashdata('success', "Sikeres törlés");
 		redirect('ajanlat');
 	}
+
+	public function ajanlat_elfogadasa($id)
+	{
+		$user_id = $this->session->userdata('user')['id'];
+		$ajanlat = $this->ajanlat_model->get_by_id($id);
+		if (empty($ajanlat)) {
+			$this->session->set_flashdata('error', "Nem létező ajánlatot próbált elfogadni");
+			redirect('ajanlat');
+		}
+		$auto = $this->auto_model->get_by_id($ajanlat['auto_id']);
+		if ($auto['hirdeto_id'] != $user_id) {
+			$this->session->set_flashdata('error', "Csak saját autó ajánlatát tudja elutasitani");
+			redirect('auto/sajat_autoim');
+		}
+		$ajanlatok = $this->ajanlat_model->get_auto_ajanlatok($auto['id']);
+		foreach ($ajanlatok as $ajanlat_elutasitashoz) {
+			if ($ajanlat_elutasitashoz['id'] != $id) {
+				$this->ajanlat_model->update($ajanlat_elutasitashoz['id'], ['elutasitva' => 1]);
+			}
+		}
+		$this->ajanlat_model->update($id, ['elfogadva' => 1]);
+		$this->auto_model->update($auto['id'], ['elkelt' => 1]);
+		$this->session->set_flashdata('success', "Ajánlat sikeresen elfogadva");
+		redirect('auto/auto_ajanlatai/'.$auto['id']);
+	}
+
+	public function ajanlat_elutasitasa($id)
+	{
+		$user_id = $this->session->userdata('user')['id'];
+		$ajanlat = $this->ajanlat_model->get_by_id($id);
+		if (empty($ajanlat)) {
+			$this->session->set_flashdata('error', "Nem létező ajánlatot próbált elutasitani");
+			redirect('auto/sajat_autoim');
+		}
+		$auto = $this->auto_model->get_by_id($ajanlat['auto_id']);
+		if ($auto['hirdeto_id'] != $user_id) {
+			$this->session->set_flashdata('error', "Csak saját autó ajánlatát tudja elutasitani");
+			redirect('auto/sajat_autoim');
+		}
+		$this->ajanlat_model->update($id, ['elutasitva' => 1]);
+		$this->session->set_flashdata('success', "Ajánlat sikeresen elutasítva");
+		redirect('auto/auto_ajanlatai/'.$auto['id']);
+	}
 }

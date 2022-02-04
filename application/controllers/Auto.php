@@ -11,6 +11,8 @@ class Auto extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('auto_model');
+		$this->load->model('ajanlat_model');
+		$this->load->model('felhasznalo_model');
 		if ($this->session->userdata('user') === NULL) {
 			redirect('');
 		}
@@ -164,6 +166,37 @@ class Auto extends CI_Controller
 		$autok = $this->auto_model->get_where_hirdeto($user_id);
 
 		$this->load->view('sajat_autoim', ['autok' => $autok]);
+
+		$this->load->view('foot');
+	}
+
+	public function auto_ajanlatai($id)
+	{
+		$user_id = $this->session->userdata('user')['id'];
+		$auto = $this->auto_model->get_by_id($id);
+		if (empty($auto)) {
+			$this->session->set_flashdata('error', "Nem létező autó ajánlatait próbálta megtekinteni!");
+			redirect('auto/sajat_autoim');
+		}
+		if ($auto['hirdeto_id'] != $user_id) {
+			$this->session->set_flashdata('error', "Csak saját autó ajánlatait tekintheti meg!");
+			redirect('auto/sajat_autoim');
+		}
+
+		$ajanlatok = $this->ajanlat_model->get_auto_ajanlatok($id);
+		
+		foreach ($ajanlatok as $key => $ajanlat) {
+			$auto = $this->auto_model->get_by_id($ajanlat['auto_id']);
+			$ajanlatok[$key]['auto_nev'] = $auto['marka'] . ' - ' . $auto['modell'];
+			$ajanlat_tevo = $this->felhasznalo_model->get_by_id($ajanlat['ajanlat_tevo_id']);
+			$ajanlatok[$key]['ajanlat_tevo_adatok'] = $ajanlat_tevo;
+		}
+
+		$this->load->view('head', ['oldal' => 'auto_ajanlatai']);
+
+		$this->load->view('auto_ajanlatai', ['ajanlatok' => $ajanlatok]);
+		
+		$this->load->view('auto_reszletek');
 
 		$this->load->view('foot');
 	}
