@@ -116,4 +116,11 @@ class Kezdolap extends CI_Controller
         $this->session->set_flashdata('success', "Sikeres bejelentkezés");
         redirect('');
     }
+
+	public function kijelentkezes()
+	{	
+		$this->session->unset_userdata('user');
+        $this->session->set_flashdata('success', "Sikeres kijelentkezés");
+        redirect('');
+	}
 }

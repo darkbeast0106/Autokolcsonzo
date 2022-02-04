@@ -28,23 +28,37 @@
 
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <ul class="navbar-nav">
-            <li class="nav-item" id="kezdolap">
-                <a class="nav-link" href="<?php echo base_url(); ?>">Kezdőlap</a>
-            </li>
-            <?php if ($this->session->userdata('user') !== NULL): ?>
-                <li class="nav-item" id="auto_felvetele">
-                    <a class="nav-link" href="<?php echo base_url(); ?>auto/auto_felvetele">Autó felvétele</a>
-                </li>
-            <?php else: ?>
-                <li class="nav-item" id="regisztracio">
-                    <a class="nav-link" href="<?php echo base_url(); ?>regisztracio">Regisztráció</a>
-                </li>
-                <li class="nav-item" id="bejelentkezes">
-                    <a class="nav-link" href="<?php echo base_url(); ?>bejelentkezes">Bejelenkezés</a>
-                </li>
-            <?php endif; ?>
-        </ul>
+		<a class="navbar-brand" href="#"><!-- TODO: brand hozzáadása--></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+        <div id="navbarNav" class="collapse navbar-collapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item" id="kezdolap">
+					<a class="nav-link" href="<?php echo base_url(); ?>">Kezdőlap</a>
+				</li>
+				<?php if ($this->session->userdata('user') !== NULL): ?>
+					<li class="nav-item" id="auto_felvetele">
+						<a class="nav-link" href="<?php echo base_url(); ?>auto/auto_felvetele">Autó felvétele</a>
+					</li>
+				<?php else: ?>
+				<?php endif; ?>
+			</ul>
+					<ul class="navbar-nav">
+				<?php if ($this->session->userdata('user') !== NULL): ?>
+					<li class="nav-item" id="kijelentkezes">
+						<a class="nav-link" href="<?php echo base_url(); ?>kijelentkezes">Kijelentkezés</a>
+					</li>
+				<?php else: ?>
+					<li class="nav-item" id="regisztracio">
+						<a class="nav-link" href="<?php echo base_url(); ?>regisztracio">Regisztráció</a>
+					</li>
+					<li class="nav-item" id="bejelentkezes">
+						<a class="nav-link" href="<?php echo base_url(); ?>bejelentkezes">Bejelenkezés</a>
+					</li>
+				<?php endif; ?>
+			</ul>
+		</div>
     </nav>
     <div class="container">
         <?php if ($this->session->userdata('success') !== NULL) : ?>
