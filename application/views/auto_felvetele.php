@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
         <label for="kep">Autó képe:</label>
-        <input accept=".jpg,.jpeg,.png,.bmp,.gif" type="file" class="form-control-file" id="kep" name="kep">
+        <input accept=".jpg,.jpeg,.png,.bmp,.gif" type="file" class="form-control-file" id="kep" name="kep" required>
     </div>
     <div class="form-group">
         <label for="tovabbi_kepek">További képek az autóról:</label>

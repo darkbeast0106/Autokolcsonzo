@@ -11,6 +11,7 @@
 				</div>
 				<div class="card-footer">
 					<p><?php echo $auto['eladasi_ar'] ?> Ft</p>
+					<a href="<?php echo base_url(). 'auto/auto_modositasa/'.$auto['id'] ?>" class="btn btn-info" style="width: 100%;">Autó módosítása</a>
 				</div>
 			</div>
 		</div>

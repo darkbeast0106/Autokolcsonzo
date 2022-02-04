@@ -49,4 +49,10 @@ class Auto_model extends CI_Model {
         $this->db->where('hirdeto_id', $hirdeto_id);
         return $this->db->get('autok')->result_array();
 	}
+
+	public function update($id, $data)
+	{	
+        $this->db->where('id', $id);
+		return $this->db->update('autok',$data);
+	}
 }

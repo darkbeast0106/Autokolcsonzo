@@ -56,6 +56,7 @@ $route['bejelentkezes']['POST'] = 'kezdolap/bejelentkezes_post';
 $route['auto_felvetele']['GET'] = 'auto/auto_felvetele';
 $route['auto_felvetele']['POST'] = 'auto/auto_felvetele_post';
 $route['kijelentkezes'] = "kezdolap/kijelentkezes";
+$route['auto_modositasa/(:num)']['POST'] = 'auto/auto_modositasa_post/$1';
 
 $route['default_controller'] = 'kezdolap';
 $route['404_override'] = '';
