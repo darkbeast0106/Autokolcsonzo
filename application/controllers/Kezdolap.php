@@ -22,6 +22,8 @@ class Kezdolap extends CI_Controller
 
         $this->load->view('kezdolap', ['autok' => $autok]);
 
+        $this->load->view('auto_reszletek');
+
         $this->load->view('foot');
     }
 
