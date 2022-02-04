@@ -136,4 +136,32 @@ class Auto extends CI_Controller
         $this->session->set_flashdata('success', "Sikeres felvétel");
         redirect('');
     }
+
+	public function autok_bongeszese()
+	{
+		$this->load->view('head', ['oldal' => 'autok_bongeszese']);
+
+		$user_id = $this->session->userdata('user')['id'];
+		
+        $autok = $this->auto_model->get_where_hirdeto_not($user_id);
+
+        $this->load->view('autok_bongeszese', ['autok' => $autok]);
+
+        $this->load->view('auto_reszletek');
+
+        $this->load->view('foot');
+	}
+
+	public function sajat_autoim()
+	{	
+		$this->load->view('head', ['oldal' => 'sajat_autoim']);
+
+		$user_id = $this->session->userdata('user')['id'];
+		
+        $autok = $this->auto_model->get_where_hirdeto($user_id);
+
+        $this->load->view('sajat_autoim', ['autok' => $autok]);
+
+        $this->load->view('foot');
+	}
 }

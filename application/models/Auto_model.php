@@ -37,4 +37,16 @@ class Auto_model extends CI_Model {
         $this->db->where('auto_id', $auto_id);
         return $this->db->get('auto_kepek')->result_array();
     }
+
+	public function get_where_hirdeto_not($hirdeto_id)
+	{
+        $this->db->where('hirdeto_id != ', $hirdeto_id);
+        return $this->db->get('autok')->result_array();
+	}
+
+	public function get_where_hirdeto($hirdeto_id)
+	{
+        $this->db->where('hirdeto_id', $hirdeto_id);
+        return $this->db->get('autok')->result_array();
+	}
 }

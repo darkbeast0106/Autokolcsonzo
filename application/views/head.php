@@ -41,6 +41,12 @@
 					<li class="nav-item" id="auto_felvetele">
 						<a class="nav-link" href="<?php echo base_url(); ?>auto/auto_felvetele">Autó felvétele</a>
 					</li>
+					<li class="nav-item" id="sajat_autoim">
+						<a class="nav-link" href="<?php echo base_url(); ?>auto/sajat_autoim">Saját autóim</a>
+					</li>
+					<li class="nav-item" id="autok_bongeszese">
+						<a class="nav-link" href="<?php echo base_url(); ?>auto/autok_bongeszese">Autók böngészése</a>
+					</li>
 				<?php else: ?>
 				<?php endif; ?>
 			</ul>
