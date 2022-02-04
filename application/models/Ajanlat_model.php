@@ -29,6 +29,12 @@ class Ajanlat_model extends CI_Model
 		$this->db->delete('ajanlatok');
 	}
 
+	public function get_by_id($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get('ajanlatok')->row_array();
+	}
+
 	public function get_auto_ajanlatok($auto_id)
 	{
 		$this->db->where('auto_id', $auto_id);

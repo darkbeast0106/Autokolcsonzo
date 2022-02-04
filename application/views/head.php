@@ -47,6 +47,9 @@
 					<li class="nav-item" id="autok_bongeszese">
 						<a class="nav-link" href="<?php echo base_url(); ?>auto/autok_bongeszese">Autók böngészése</a>
 					</li>
+					<li class="nav-item" id="sajat_ajanlataim">
+						<a class="nav-link" href="<?php echo base_url(); ?>ajanlat">Saját ajánlataim</a>
+					</li>
 				<?php else: ?>
 				<?php endif; ?>
 			</ul>

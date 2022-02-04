@@ -17,8 +17,23 @@ class Ajanlat extends CI_Controller {
 	}
 
 	public function index()
-	{
-		
+	{	
+		$this->load->view('head', ['oldal' => 'sajat_ajanlataim']);
+
+		$user_id = $this->session->userdata('user')['id'];
+
+		$ajanlatok = $this->ajanlat_model->get_ajanlat_tevo_ajanlatok($user_id);
+
+		foreach ($ajanlatok as $key => $ajanlat) {
+			$auto = $this->auto_model->get_by_id($ajanlat['auto_id']);
+			$ajanlatok[$key]['auto_nev'] = $auto['marka'] . ' - ' . $auto['modell'];
+		}
+
+		$this->load->view('sajat_ajanlataim', ['ajanlatok' => $ajanlatok]);
+
+		$this->load->view('auto_reszletek');
+
+		$this->load->view('foot');
 	}
 
 	public function ajanlat_tetel()
@@ -53,6 +68,24 @@ class Ajanlat extends CI_Controller {
 		];
 		$id = $this->ajanlat_model->insert($data);
 		$this->session->set_flashdata('success', "Sikeres ajánlattétel");
+		redirect('ajanlat');
+	}
+
+	public function ajanlat_torlese($id)
+	{
+		$user_id = $this->session->userdata('user')['id'];
+		$ajanlat = $this->ajanlat_model->get_by_id($id);
+		if (empty($ajanlat)) {
+			$this->session->set_flashdata('error', "Nem létező ajánlatot próbált törölni");
+			redirect('ajanlat');
+		}
+		if ($ajanlat['ajanlat_tevo_id'] != $user_id) {
+			$this->session->set_flashdata('error', "Csak saját ajánlatot tud törölni");
+			redirect('ajanlat');
+		}
+		$this->ajanlat_model->delete($id);
+
+		$this->session->set_flashdata('success', "Sikeres törlés");
 		redirect('ajanlat');
 	}
 }
