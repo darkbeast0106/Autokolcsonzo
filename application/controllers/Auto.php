@@ -307,4 +307,23 @@ class Auto extends CI_Controller
 		$this->session->set_flashdata('success', "Sikeres módosítás");
 		redirect('auto/sajat_autoim');
 	}
+
+	public function auto_torlese($id)
+	{
+		$user_id = $this->session->userdata('user')['id'];
+		$auto = $this->auto_model->get_by_id($id);
+		if (empty($auto)) {
+			$this->session->set_flashdata('error', "Nem létező autót próbált törölni");
+			redirect('auto/sajat_autoim');
+		}
+		if ($auto['hirdeto_id'] != $user_id) {
+			$this->session->set_flashdata('error', "Csak saját autót tud törölni");
+			redirect('auto/sajat_autoim');
+		}
+		$this->auto_model->delete_kepek_by_auto_id($id);
+		$this->auto_model->delete($id);
+
+		$this->session->set_flashdata('success', "Sikeres törlés");
+		redirect('auto/sajat_autoim');
+	}
 }

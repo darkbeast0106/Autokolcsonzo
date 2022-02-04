@@ -12,9 +12,19 @@
 				<div class="card-footer">
 					<p><?php echo $auto['eladasi_ar'] ?> Ft</p>
 					<a href="<?php echo base_url(). 'auto/auto_modositasa/'.$auto['id'] ?>" class="btn btn-info" style="width: 100%;">Autó módosítása</a>
+					<button onclick="auto_torlese(<?php echo $auto['id'] ?>)" class="btn btn-danger" style="width: 100%;">Törlés</button>
 				</div>
 			</div>
 		</div>
 
 	<?php endforeach; ?>
 </div>
+
+<script>
+	function auto_torlese(id) {
+		if(confirm("Biztos, hogy törölni szeretné a kiválasztott autót?")){
+			location = "<?php echo base_url() . "auto/auto_torlese/" ?>" +id;
+		}
+	}
+
+</script>

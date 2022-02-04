@@ -55,4 +55,14 @@ class Auto_model extends CI_Model {
         $this->db->where('id', $id);
 		return $this->db->update('autok',$data);
 	}
+	public function delete($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('autok');
+	}
+	public function delete_kepek_by_auto_id($auto_id)
+	{
+		$this->db->where('auto_id', $auto_id);
+		$this->db->delete('auto_kepek');
+	}
 }
